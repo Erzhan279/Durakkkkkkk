@@ -51,3 +51,35 @@ button:hover {
   background-color: rgba(255, 255, 255, 0.3);
   transform: scale(1.05);
 }
+/* Лампа контейнері */
+.lamp {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: swing 4s ease-in-out infinite;
+  z-index: 5;
+}
+
+/* Шам (жарық бөлігі) */
+.bulb {
+  width: 40px;
+  height: 40px;
+  background: radial-gradient(circle, #fff5cc 0%, #ffcc00 60%, #b8860b 100%);
+  border-radius: 50%;
+  box-shadow: 0 0 25px 10px rgba(255, 220, 120, 0.8);
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+/* Тербелу анимациясы */
+@keyframes swing {
+  0% { transform: translateX(-50%) rotate(3deg); }
+  50% { transform: translateX(-50%) rotate(-3deg); }
+  100% { transform: translateX(-50%) rotate(3deg); }
+}
+
+/* Жарықтың жұмсақ пульсациясы */
+@keyframes glow {
+  from { box-shadow: 0 0 15px 5px rgba(255, 230, 150, 0.6); }
+  to { box-shadow: 0 0 25px 12px rgba(255, 240, 180, 0.9); }
+}
