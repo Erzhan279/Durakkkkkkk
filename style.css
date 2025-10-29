@@ -17,8 +17,8 @@ body {
 /* Қазақи ою фоны */
 .overlay {
   background-image: url('pattern.png.jpg');
-  background-size: 180px;
-  background-repeat: repeat;
+  background-size: cover;
+  background-repeat: no-repeat;
   background-position: center;
   opacity: 1;
   position: absolute;
