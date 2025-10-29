@@ -1,125 +1,87 @@
 body {
   margin: 0;
   padding: 0;
+  font-family: 'Arial', sans-serif;
   height: 100vh;
+  background: url('pattern.png.jpg') no-repeat center center/cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
   overflow: hidden;
-  font-family: sans-serif;
 }
 
-/* 🔹 Фон */
 .overlay {
-  background-image: url('pattern.png.jpg');
-  background-size: cover;
-  background-position: center;
-  position: fixed; /* ← бет бойы жабады, қозғалыссыз */
+  position: absolute;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 0;
-  filter: brightness(0.6); /* ← тек фон қарайған */
-}
-
-/* 🔹 Контент үстінде тұрады */
-.content {
-  position: relative;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.55);
   z-index: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  gap: 20px;
-  color: white;
-  text-shadow: 0 0 10px black;
 }
 
-/* 🔹 Батырма стилі */
-button {
-  background-color: rgba(255, 255, 255, 0.1);
-  border: 2px solid #d4af37;
-  color: #fff;
-  padding: 15px 40px;
-  border-radius: 10px;
-  font-size: 20px;
-  cursor: pointer;
-  backdrop-filter: blur(5px);
-  transition: 0.3s;
-}
-
-button:hover {
-  background-color: rgba(255, 255, 255, 0.3);
-  transform: scale(1.05);
-}
-/* Лампа контейнері */
-.lamp {
-  position: absolute;
-  top: 10%;
-  left: 50%;
-  transform: translateX(-50%);
-  animation: swing 4s ease-in-out infinite;
-  z-index: 5;
-}
-
-/* Шам (жарық бөлігі) */
-.bulb {
-  width: 40px;
-  height: 40px;
-  background: radial-gradient(circle, #fff5cc 0%, #ffcc00 60%, #b8860b 100%);
-  border-radius: 50%;
-  box-shadow: 0 0 25px 10px rgba(255, 220, 120, 0.8);
-  animation: glow 2s ease-in-out infinite alternate;
-}
-
-/* Тербелу анимациясы */
-@keyframes swing {
-  0% { transform: translateX(-50%) rotate(3deg); }
-  50% { transform: translateX(-50%) rotate(-3deg); }
-  100% { transform: translateX(-50%) rotate(3deg); }
-}
-
-/* Жарықтың жұмсақ пульсациясы */
-@keyframes glow {
-  from { box-shadow: 0 0 15px 5px rgba(255, 230, 150, 0.6); }
-  to { box-shadow: 0 0 25px 12px rgba(255, 240, 180, 0.9); }
-}
-/* ---- Төрт карта жіппен ілулі ---- */
+/* Карталар анимациясы */
 .cards {
   position: absolute;
   top: -150px;
-  left: 50%;
-  transform: translateX(-50%);
+  width: 100%;
   display: flex;
   justify-content: center;
-  gap: 60px;
+  gap: 30px;
   z-index: 2;
 }
 
 .card {
-  width: 70px;
-  height: auto;
+  width: 80px;
+  animation: fall 3s ease-in-out forwards, swing 3s infinite ease-in-out alternate;
   opacity: 0;
-  transform: translateY(-100px) rotate(0deg);
-  animation: drop 2s ease-out forwards, sway 4s ease-in-out infinite;
 }
 
-.card1 { animation-delay: 0.2s; }
-.card2 { animation-delay: 0.4s; }
-.card3 { animation-delay: 0.6s; }
-.card4 { animation-delay: 0.8s; }
-
-@keyframes drop {
-  0% {
-    opacity: 0;
-    transform: translateY(-100px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(80px);
-  }
+@keyframes fall {
+  0% { transform: translateY(-200px); opacity: 0; }
+  100% { transform: translateY(120px); opacity: 1; }
 }
 
-@keyframes sway {
-  0%, 100% { transform: rotate(-2deg) translateY(80px); }
-  50% { transform: rotate(2deg) translateY(82px); }
+@keyframes swing {
+  0% { transform: rotate(-5deg); }
+  100% { transform: rotate(5deg); }
+}
+
+/* Контейнер */
+.container {
+  text-align: center;
+  z-index: 3;
+  color: white;
+}
+
+.title h1 {
+  font-size: 2.2em;
+  margin-bottom: 5px;
+}
+
+.subtitle {
+  font-size: 1.3em;
+  margin-bottom: 40px;
+  color: #f1f1f1;
+}
+
+/* Батырмалар */
+.buttons button {
+  display: block;
+  margin: 15px auto;
+  padding: 15px 40px;
+  font-size: 1.2em;
+  color: white;
+  background: rgba(40, 20, 10, 0.8);
+  border: 2px solid gold;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+}
+
+.buttons button:hover {
+  background: rgba(255, 215, 0, 0.2);
+  transform: scale(1.05);
 }
