@@ -85,3 +85,57 @@ body {
   background: rgba(255, 215, 0, 0.2);
   transform: scale(1.05);
 }
+/* --- Карта анимациясы --- */
+.card {
+  position: absolute;
+  width: 80px;
+  height: auto;
+  top: -150px; /* жоғарыдан басталады */
+  opacity: 0;
+  animation: fall 2s ease-out forwards, swing 3s ease-in-out infinite 2s;
+}
+
+/* Әр карта әр түрлі бұрышта түседі */
+.card:nth-child(1) {
+  left: 20%;
+  animation-delay: 0.3s;
+}
+.card:nth-child(2) {
+  left: 40%;
+  animation-delay: 0.6s;
+}
+.card:nth-child(3) {
+  left: 60%;
+  animation-delay: 0.9s;
+}
+.card:nth-child(4) {
+  left: 80%;
+  animation-delay: 1.2s;
+}
+
+/* Түсу анимациясы */
+@keyframes fall {
+  0% {
+    top: -150px;
+    opacity: 0;
+    transform: rotate(-30deg);
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    top: 80px;
+    opacity: 1;
+    transform: rotate(5deg);
+  }
+}
+
+/* Тербелу анимациясы */
+@keyframes swing {
+  0%, 100% {
+    transform: rotate(5deg) translateY(0);
+  }
+  50% {
+    transform: rotate(-5deg) translateY(5px);
+  }
+}
