@@ -1,123 +1,187 @@
-/* Негізгі стильдер */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #F5EADF; /* Ашық қоңыр түс */
-    color: #5C3A21; /* Қою қоңыр мәтін */
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+document.addEventListener('DOMContentLoaded', () => {
+
+    // ... (Басқа DOM элементтері мен айнымалылар өзгеріссіз қалады) ...
+
+    const startGameBtn = document.getElementById('start-game-btn');
+    const playerHandDiv = document.getElementById('player-hand');
+    const opponentHandDiv = document.getElementById('opponent-hand');
+    const deckDiv = document.getElementById('deck');
+    const trumpCardDiv = document.getElementById('trump-card');
+
+    const SUITS = ['♥', '♦', '♣', '♠']; 
+    const RANKS = ['6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']; 
+
+    let playerHand = [];
+    let opponentHand = [];
+    let deck = [];
+    let trumpSuit = '';
+    let isPlayerTurn = true;
+
+    startGameBtn.addEventListener('click', startGame);
+
+    /**
+     * Картаның түсіне байланысты CSS классын қайтарады
+     */
+    function getSuitClass(suit) {
+        // Қызыл түстер: Құрт (♥), Буби (♦)
+        if (suit === '♥' || suit === '♦') {
+            return 'red-suit';
+        }
+        // Қара түстер: Шыбын (♣), Кере (♠)
+        return 'black-suit';
+    }
+
+    /**
+     * Ойынды бастау функциясы
+     */
+    function startGame() {
+        console.log('Ойын басталды!');
+        
+        // 1. Барлық карталарды тазалау
+        playerHandDiv.innerHTML = '';
+        opponentHandDiv.innerHTML = '';
+        trumpCardDiv.innerHTML = '';
+        trumpCardDiv.className = 'card'; // Бастапқы класс
+
+        // 2. Карта колодасын жасау және араластыру
+        deck = createDeck();
+        shuffleDeck(deck);
+
+        // 3. Козырьді анықтау
+        setTrump();
+
+        // 4. Ойыншыларға 6 картадан тарату
+        dealCards();
+
+        // 5. Ойын алаңын жаңарту
+        updateUI();
+
+        console.log('Сіздің карталарыңыз:', playerHand);
+        console.log('Козырь:', trumpSuit);
+
+        // Бастау батырмасын жасыру
+        startGameBtn.style.display = 'none';
+    }
+
+    // --- ҚОСЫЛҒАН ЛОГИКА ---
+
+    /**
+     * Колодадан соңғы картаны алып, козырь ретінде орнатады
+     */
+    function setTrump() {
+        // Колоданың соңғы картасы козырь болады
+        const trumpCard = deck.pop(); 
+        
+        trumpSuit = trumpCard.suit;
+        
+        // Козырь картасын дисплейде көрсету
+        trumpCardDiv.innerHTML = `
+            <span class="${getSuitClass(trumpSuit)}">${trumpCard.rank}${trumpCard.suit}</span>
+        `;
+        trumpCardDiv.classList.add(getSuitClass(trumpSuit));
+        
+        // Козырь картаны колоданың астына қайта қою (кейін қолдану үшін)
+        deck.unshift(trumpCard);
+        
+        // Колодадағы карта саны жаңартылады
+        deckDiv.innerHTML = `${deck.length}`; 
+    }
+
+    /**
+     * Ойыншыларға 6 картадан таратады
+     */
+    function dealCards() {
+        // Әр ойыншыға 6 картадан тарату
+        for (let i = 0; i < 6; i++) {
+            playerHand.push(deck.pop());
+            opponentHand.push(deck.pop());
+        }
+    }
+
+    // --- UI ЖАҢАРТУ ЛОГИКАСЫ ---
+
+    /**
+     * Ойын алаңын жаңартады (карталарды көрсетеді)
+     */
+    function updateUI() {
+        // Ойыншының қолындағы карталарды дисплейде көрсету
+        playerHandDiv.innerHTML = ''; // Қолды тазалау
+        playerHand.forEach(card => {
+            const cardElement = document.createElement('div');
+            cardElement.className = `card ${getSuitClass(card.suit)}`;
+            cardElement.innerHTML = `
+                <span class="card-rank">${card.rank}</span>
+                <span class="card-suit">${card.suit}</span>
+            `;
+            // Картаны басқандағы функцияны қосу (Келесі қадамда)
+            // cardElement.addEventListener('click', () => handleCardClick(card)); 
+
+            playerHandDiv.appendChild(cardElement);
+        });
+
+        // Қарсыластың қолындағы карталарды көрсету (тек сыртқы түрі)
+        opponentHandDiv.innerHTML = '';
+        for (let i = 0; i < opponentHand.length; i++) {
+            const cardElement = document.createElement('div');
+            cardElement.className = 'card card-back';
+            opponentHandDiv.appendChild(cardElement);
+        }
+    }
+    
+    // --- Бұрынғы createDeck және shuffleDeck функциялары өзгеріссіз қалады ---
+    
+    function createDeck() {
+        const newDeck = [];
+        for (let suit of SUITS) {
+            for (let rank of RANKS) {
+                newDeck.push({ suit: suit, rank: rank });
+            }
+        }
+        return newDeck;
+    }
+
+    function shuffleDeck(deck) {
+        for (let i = deck.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [deck[i], deck[j]] = [deck[j], deck[i]];
+        }
+    }
+
+    // --- Ойынның басқа логикалары (әлі де жазылмаған) ---
+
+});
+/* ... (Басқа стильдердің астына қосыңыз) ... */
+
+/* Картаның қызыл/қара түстері */
+.red-suit {
+    color: #CC0000; /* Қызыл */
 }
 
-header {
-    text-align: center;
-    padding: 10px;
-    background-color: #8B4513; /* Сарғыш-қоңыр */
-    color: white;
-    border-bottom: 5px solid #D2B48C; /* Ашық сары-қоңыр */
+.black-suit {
+    color: #1A1A1A; /* Қара */
 }
 
-h1 {
-    margin: 0;
-}
-
-.game-container {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 20px;
-}
-
-/* Ойын алаңы */
-#game-board {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    background-color: #A0522D; /* Қоңыр (үстел түсі) */
-    border: 10px solid #8B4513;
-    border-radius: 10px;
-    padding: 20px;
-    min-height: 200px;
-    /* Қазақи ою-өрнек фоны (суреттің сілтемесін қою керек) */
-    /* background-image: url('images/ornament.png'); */
-    background-size: cover;
-}
-
-#deck-area {
-    position: relative;
-}
-
-#trump-card {
-    position: absolute;
-    top: 25px;
-    left: 25px;
-    transform: rotate(90deg);
-}
-
-/* Карта стильдері */
+/* Картаның ішіндегі элементтерді орналастыру */
 .card {
-    width: 60px;
-    height: 90px;
-    background-color: white;
-    border: 1px solid #333;
-    border-radius: 5px;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    position: relative;
+    padding: 5px;
+}
+
+.card-rank {
+    position: absolute;
+    top: 5px;
+    left: 5px;
     font-size: 1.2rem;
-    font-weight: bold;
 }
 
-.card-back {
-    background-color: #5C3A21;
-    /* Картаның артқы жағына ою-өрнек (суретпен) */
-    /* background-image: url('images/card-back-ornament.png'); */
-    background-size: cover;
+.card-suit {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    font-size: 1.5rem;
 }
 
-/* Қолдағы карталар */
-.hand-area {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 110px;
-    padding: 10px;
-}
-
-#player-hand .card {
-    margin: 0 5px;
-    cursor: pointer;
-    transition: transform 0.2s;
-}
-
-#player-hand .card:hover {
-    transform: translateY(-15px);
-}
-
-#opponent-hand .card {
-    margin: 0 5px;
-}
-
-/* Батырма */
-footer {
-    text-align: center;
-    padding: 20px;
-}
-
-#start-game-btn {
-    background-color: #8B4513;
-    color: white;
-    border: none;
-    padding: 15px 30px;
-    font-size: 1.2rem;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-#start-game-btn:hover {
-    background-color: #A0522D;
+/* Козырь картасының стилі */
+#trump-card {
+    background-color: #F8F8F8; /* Козырь картасын ерекшелеу */
 }
