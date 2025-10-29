@@ -1,25 +1,35 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    // DOM элементтері
+    // ... (Басқа DOM элементтері мен айнымалылар өзгеріссіз қалады) ...
+
     const startGameBtn = document.getElementById('start-game-btn');
     const playerHandDiv = document.getElementById('player-hand');
     const opponentHandDiv = document.getElementById('opponent-hand');
     const deckDiv = document.getElementById('deck');
     const trumpCardDiv = document.getElementById('trump-card');
 
-    // Карталардың негізгі параметрлері
-    const SUITS = ['♥', '♦', '♣', '♠']; // Құрт (черви), Буби (бубны), Шыбын (крести), Кере (пики)
-    const RANKS = ['6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']; // Валет, Дама, Король, Туз
+    const SUITS = ['♥', '♦', '♣', '♠']; 
+    const RANKS = ['6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']; 
 
-    // Ойынның негізгі айнымалылары
     let playerHand = [];
     let opponentHand = [];
     let deck = [];
     let trumpSuit = '';
     let isPlayerTurn = true;
 
-    // Ойынды бастау
     startGameBtn.addEventListener('click', startGame);
+
+    /**
+     * Картаның түсіне байланысты CSS классын қайтарады
+     */
+    function getSuitClass(suit) {
+        // Қызыл түстер: Құрт (♥), Буби (♦)
+        if (suit === '♥' || suit === '♦') {
+            return 'red-suit';
+        }
+        // Қара түстер: Шыбын (♣), Кере (♠)
+        return 'black-suit';
+    }
 
     /**
      * Ойынды бастау функциясы
@@ -29,71 +39,114 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // 1. Барлық карталарды тазалау
         playerHandDiv.innerHTML = '';
-        opponentHandDiv.innerHTML = ''; // Компьютер карталарын да тазалау
-        trumpCardDiv.innerHTML = ''; // Козырьді тазалау
-        trumpCardDiv.classList.remove(...SUITS); // Козырьдің түсін алып тастау
+        opponentHandDiv.innerHTML = '';
+        trumpCardDiv.innerHTML = '';
+        trumpCardDiv.className = 'card'; // Бастапқы класс
 
-        // 2. Карта колодасын жасау
+        // 2. Карта колодасын жасау және араластыру
         deck = createDeck();
-        console.log('Колода жасалды:', deck.length + ' карта');
-
-        // 3. Колоданы араластыру
         shuffleDeck(deck);
-        console.log('Колода араластырылды.');
 
-        // 4. Козырьді анықтау
-        // (Бұл логика келесі қадамда қосылады)
+        // 3. Козырьді анықтау
+        setTrump();
 
-        // 5. Ойыншыларға 6 картадан тарату
-        // (Бұл логика келесі қадамда қосылады)
+        // 4. Ойыншыларға 6 картадан тарату
+        dealCards();
 
-        // 6. Ойын алаңын жаңарту
-        // updateUI();
+        // 5. Ойын алаңын жаңарту
+        updateUI();
 
-        alert('Колода жасалып, араластырылды! Келесі қадам - карта тарату.');
+        console.log('Сіздің карталарыңыз:', playerHand);
+        console.log('Козырь:', trumpSuit);
+
+        // Бастау батырмасын жасыру
+        startGameBtn.style.display = 'none';
+    }
+
+    // --- ҚОСЫЛҒАН ЛОГИКА ---
+
+    /**
+     * Колодадан соңғы картаны алып, козырь ретінде орнатады
+     */
+    function setTrump() {
+        // Колоданың соңғы картасы козырь болады
+        const trumpCard = deck.pop(); 
+        
+        trumpSuit = trumpCard.suit;
+        
+        // Козырь картасын дисплейде көрсету
+        trumpCardDiv.innerHTML = `
+            <span class="${getSuitClass(trumpSuit)}">${trumpCard.rank}${trumpCard.suit}</span>
+        `;
+        trumpCardDiv.classList.add(getSuitClass(trumpSuit));
+        
+        // Козырь картаны колоданың астына қайта қою (кейін қолдану үшін)
+        deck.unshift(trumpCard);
+        
+        // Колодадағы карта саны жаңартылады
+        deckDiv.innerHTML = `${deck.length}`; 
     }
 
     /**
-     * 36 картадан тұратын колода жасайды
-     * @returns {Array} Карталар массиві (объектілер)
+     * Ойыншыларға 6 картадан таратады
      */
+    function dealCards() {
+        // Әр ойыншыға 6 картадан тарату
+        for (let i = 0; i < 6; i++) {
+            playerHand.push(deck.pop());
+            opponentHand.push(deck.pop());
+        }
+    }
+
+    // --- UI ЖАҢАРТУ ЛОГИКАСЫ ---
+
+    /**
+     * Ойын алаңын жаңартады (карталарды көрсетеді)
+     */
+    function updateUI() {
+        // Ойыншының қолындағы карталарды дисплейде көрсету
+        playerHandDiv.innerHTML = ''; // Қолды тазалау
+        playerHand.forEach(card => {
+            const cardElement = document.createElement('div');
+            cardElement.className = `card ${getSuitClass(card.suit)}`;
+            cardElement.innerHTML = `
+                <span class="card-rank">${card.rank}</span>
+                <span class="card-suit">${card.suit}</span>
+            `;
+            // Картаны басқандағы функцияны қосу (Келесі қадамда)
+            // cardElement.addEventListener('click', () => handleCardClick(card)); 
+
+            playerHandDiv.appendChild(cardElement);
+        });
+
+        // Қарсыластың қолындағы карталарды көрсету (тек сыртқы түрі)
+        opponentHandDiv.innerHTML = '';
+        for (let i = 0; i < opponentHand.length; i++) {
+            const cardElement = document.createElement('div');
+            cardElement.className = 'card card-back';
+            opponentHandDiv.appendChild(cardElement);
+        }
+    }
+    
+    // --- Бұрынғы createDeck және shuffleDeck функциялары өзгеріссіз қалады ---
+    
     function createDeck() {
         const newDeck = [];
-        // Әрбір түс (suit) үшін...
         for (let suit of SUITS) {
-            // Әрбір ранг (rank) үшін...
             for (let rank of RANKS) {
-                // Жаңа карта объектісін жасап, массивке қосамыз
                 newDeck.push({ suit: suit, rank: rank });
             }
         }
         return newDeck;
     }
 
-    /**
-     * Колоданы араластырады (Fisher-Yates әдісі)
-     * @param {Array} deck - Араластырылатын колода
-     */
     function shuffleDeck(deck) {
-        // Массивтің соңынан басына қарай жүреміз
         for (let i = deck.length - 1; i > 0; i--) {
-            // 0 мен i арасында кездейсоқ индексті таңдаймыз
             const j = Math.floor(Math.random() * (i + 1));
-            
-            // Екі картаның орнын ауыстырамыз (deck[i] және deck[j])
             [deck[i], deck[j]] = [deck[j], deck[i]];
         }
     }
 
-    /**
-     * Ойын алаңын жаңартады (карталарды көрсетеді)
-     */
-    function updateUI() {
-        // Бұл функция ойыншының қолындағы карталарды HTML-ге айналдырады
-        // (Келесі қадамдарда толтырамыз)
-        console.log('Интерфейс жаңартылуда...');
-    }
-    
-    // --- Ойынның басқа логикалары (әзірге бос) ---
+    // --- Ойынның басқа логикалары (әлі де жазылмаған) ---
 
 });
