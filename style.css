@@ -20,7 +20,7 @@ body {
   background-size: 180px;
   background-repeat: repeat;
   background-position: center;
-  opacity: 0.08;
+  opacity: 1;
   position: absolute;
   top: 0;
   left: 0;
@@ -31,7 +31,7 @@ body {
 .container {
   position: relative;
   text-align: center;
-  z-index: 2;
+  z-index: 1;
 }
 
 .title h1 {
