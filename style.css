@@ -90,47 +90,47 @@ body {
   position: absolute;
   width: 80px;
   height: auto;
-  top: -150px; /* жоғарыдан басталады */
+  top: -200px; /* жоғарырақ басталады */
   opacity: 0;
   animation: fall 2s ease-out forwards, swing 3s ease-in-out infinite 2s;
 }
 
-/* Әр карта әр түрлі бұрышта түседі */
+/* карталардың бастапқы орналасуы */
 .card:nth-child(1) {
-  left: 20%;
+  left: 15%;
   animation-delay: 0.3s;
 }
 .card:nth-child(2) {
-  left: 40%;
+  left: 35%;
   animation-delay: 0.6s;
 }
 .card:nth-child(3) {
-  left: 60%;
+  left: 55%;
   animation-delay: 0.9s;
 }
 .card:nth-child(4) {
-  left: 80%;
+  left: 75%;
   animation-delay: 1.2s;
 }
 
-/* Түсу анимациясы */
+/* түсу анимациясын өзгертіп, төменірек түсіреміз */
 @keyframes fall {
   0% {
-    top: -150px;
+    top: -200px;
     opacity: 0;
-    transform: rotate(-30deg);
+    transform: rotate(-20deg);
   }
   60% {
     opacity: 1;
   }
   100% {
-    top: 80px;
+    top: 120px; /* бұрын 80px еді, енді төменірек түседі */
     opacity: 1;
     transform: rotate(5deg);
   }
 }
 
-/* Тербелу анимациясы */
+/* тербелу қалдырамыз */
 @keyframes swing {
   0%, 100% {
     transform: rotate(5deg) translateY(0);
