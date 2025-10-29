@@ -4,11 +4,16 @@
 <body>
   <div class="overlay"></div>
 
-  <div class="content">
-    <h1>🎴 Durak QQ</h1>
-<p class="subtitle">Ойын түрін таңдаңыз</p>
-<button>Онлайн ойнау</button>
-<button>Жалғыз ойнау</button>
+  <div class="container">
+    <div class="title">
+      <span class="emoji">🃏</span>
+      <h1>Durak QQ</h1>
+    </div>
+
+    <div class="buttons">
+      <button id="online">🌐 Онлайн ойнау</button>
+      <button id="solo">🧍‍♂️ Жалғыз ойнау</button>
+    </div>
   </div>
 </body>
 <!DOCTYPE html>
@@ -22,18 +27,6 @@
 <body>
   <div class="overlay"></div>
   
-  <div class="container">
-    <div class="title">
-      <span class="emoji">🃏</span>
-      <h1>Durak QQ</h1>
-    </div>
-
-    <div class="buttons">
-      <button id="online">🌐 Онлайн ойнау</button>
-      <button id="solo">🧍‍♂️ Жалғыз ойнау</button>
-    </div>
-  </div>
-
   <script>
     document.getElementById('online').onclick = () => alert('Онлайн ойнау - жақында қосылады!');
     document.getElementById('solo').onclick = () => alert('Жалғыз ойнау - тест режимінде.');
