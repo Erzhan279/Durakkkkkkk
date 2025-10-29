@@ -1,21 +1,3 @@
-<div class="lamp">
-  <div class="bulb"></div>
-</div>
-<body>
-  <div class="overlay"></div>
-
-  <div class="container">
-    <div class="title">
-      <span class="emoji">🃏</span>
-      <h1>Durak QQ</h1>
-    </div>
-
-    <div class="buttons">
-      <button id="online">🌐 Онлайн ойнау</button>
-      <button id="solo">🧍‍♂️ Жалғыз ойнау</button>
-    </div>
-  </div>
-</body>
 <!DOCTYPE html>
 <html lang="kk">
 <head>
@@ -24,9 +6,31 @@
   <title>Durak QQ</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
+  <!-- Тербеліп тұратын лампа -->
+  <div class="lamp">
+    <div class="bulb"></div>
+  </div>
+
+  <!-- Фон үстіндегі күңгірт қабат -->
   <div class="overlay"></div>
-  
+
+  <!-- Негізгі контент -->
+  <div class="container">
+    <div class="title">
+      <span class="emoji">🃏</span>
+      <h1>Durak QQ</h1>
+    </div>
+
+    <h2 class="subtitle">🎮 Ойын түрін таңдаңыз</h2>
+
+    <div class="buttons">
+      <button id="online">🌐 Онлайн ойнау</button>
+      <button id="solo">🧍‍♂️ Жалғыз ойнау</button>
+    </div>
+  </div>
+
   <script>
     document.getElementById('online').onclick = () => alert('Онлайн ойнау - жақында қосылады!');
     document.getElementById('solo').onclick = () => alert('Жалғыз ойнау - тест режимінде.');
