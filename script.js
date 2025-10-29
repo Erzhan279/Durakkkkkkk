@@ -1,22 +1,17 @@
 const tg = window.Telegram.WebApp;
-tg.expand(); // толық экран
+tg.expand();
 
-const chatId = new URLSearchParams(window.location.search).get("chat");
+document.getElementById("joinBtn").addEventListener("click", () => {
+  tg.sendData("join_group");
+  tg.showAlert("Топқа қосылу сұранысы жіберілді ✅");
+});
 
-document.getElementById("soloBtn").onclick = () => {
-  document.getElementById("status").innerText = "🎮 Жеке ойын басталды!";
-  tg.sendData(JSON.stringify({mode: "solo", chatId}));
-};
+document.getElementById("startBtn").addEventListener("click", () => {
+  tg.sendData("start_game");
+  tg.showAlert("Ойын басталды! 🎮");
+});
 
-document.getElementById("groupBtn").onclick = () => {
-  document.getElementById("status").innerText = "👥 Топтық ойынға қосылдың!";
-  fetch("https://<ТВОЙ-RENDER-АДРЕС>/join", {
-    method: "POST",
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify({chat_id: chatId, user_id: tg.initDataUnsafe?.user?.id})
-  })
-  .then(res => res.json())
-  .then(() => {
-    tg.sendData(JSON.stringify({mode: "group", chatId}));
-  });
-};
+document.getElementById("adviceBtn").addEventListener("click", () => {
+  tg.sendData("ask_advice");
+  tg.showAlert("🤖 Кеңес сұрау жіберілді");
+});
