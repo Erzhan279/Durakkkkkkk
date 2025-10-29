@@ -1,43 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@600&display=swap');
+
 body {
   margin: 0;
-  background: radial-gradient(circle at center, #8b5e3c, #3a1d0e);
+  background: radial-gradient(circle at center, #4a2f15 0%, #2e1a09 100%);
+  font-family: 'Nunito', sans-serif;
   color: #fff;
-  font-family: 'Segoe UI', sans-serif;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  overflow: hidden;
   height: 100vh;
 }
 
 .table {
-  text-align: center;
-  padding: 40px;
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: url('https://i.imgur.com/lY2BocZ.jpeg') center/cover no-repeat;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
   background: rgba(0, 0, 0, 0.4);
-  border: 5px solid #c49b66;
-  border-radius: 20px;
-  box-shadow: 0 0 40px #000;
-  background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Kazakh_ornament.svg/1024px-Kazakh_ornament.svg.png');
-  background-size: 200px;
-  background-blend-mode: overlay;
+}
+
+.title {
+  position: relative;
+  z-index: 2;
+  font-size: 2rem;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px #000;
+}
+
+.buttons {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  gap: 15px;
+  margin-bottom: 40px;
 }
 
 button {
-  padding: 15px 25px;
-  font-size: 18px;
+  background: #d4a373;
+  color: #fff;
   border: none;
   border-radius: 10px;
-  margin: 10px;
+  padding: 12px 20px;
+  font-size: 16px;
   cursor: pointer;
-  background: #c49b66;
-  color: #000;
-  transition: 0.2s;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  transition: transform 0.2s, background 0.2s;
 }
 
 button:hover {
-  background: #ffd27f;
+  background: #c08e5a;
+  transform: scale(1.05);
 }
 
-#status {
-  margin-top: 20px;
-  font-style: italic;
+.cards {
+  display: flex;
+  gap: 20px;
+  z-index: 2;
+  position: relative;
+}
+
+.card {
+  font-size: 50px;
+  transform: rotateY(10deg) rotateX(15deg);
+  transition: transform 0.3s;
+}
+
+.card:hover {
+  transform: rotateY(0) rotateX(0) scale(1.2);
 }
