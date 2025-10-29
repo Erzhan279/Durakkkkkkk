@@ -1,72 +1,53 @@
-@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;600;700&display=swap');
-
 body {
   margin: 0;
   padding: 0;
   height: 100vh;
-  font-family: 'Rubik', sans-serif;
-  background-color: #4b2e05;
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
   overflow: hidden;
+  font-family: sans-serif;
 }
 
-/* Қазақи ою фоны */
+/* 🔹 Фон */
 .overlay {
   background-image: url('pattern.png.jpg');
   background-size: cover;
-  background-repeat: no-repeat;
   background-position: center;
-  opacity: 1;
-  position: absolute;
+  position: fixed; /* ← бет бойы жабады, қозғалыссыз */
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
+  z-index: 0;
+  filter: brightness(0.6); /* ← тек фон қарайған */
 }
 
-.container {
+/* 🔹 Контент үстінде тұрады */
+.content {
   position: relative;
-  text-align: center;
   z-index: 1;
-  filter: brightness(0.6);
-}
-
-.title h1 {
-  font-size: 3em;
-  margin: 0.3em 0;
-  color: #ffd280;
-  text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
-}
-
-.title .emoji {
-  font-size: 2em;
-}
-
-.buttons {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
   gap: 20px;
-  margin-top: 40px;
+  color: white;
+  text-shadow: 0 0 10px black;
 }
 
+/* 🔹 Батырма стилі */
 button {
-  background: linear-gradient(145deg, #6e400a, #8b5e20);
-  border: 2px solid #b88645;
-  border-radius: 14px;
-  color: white;
-  padding: 15px 30px;
-  font-size: 1.2em;
-  font-weight: 600;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.4);
-  transition: all 0.2s ease-in-out;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 2px solid #d4af37;
+  color: #fff;
+  padding: 15px 40px;
+  border-radius: 10px;
+  font-size: 20px;
   cursor: pointer;
+  backdrop-filter: blur(5px);
+  transition: 0.3s;
 }
 
 button:hover {
-  background: linear-gradient(145deg, #8b5e20, #a8752e);
+  background-color: rgba(255, 255, 255, 0.3);
   transform: scale(1.05);
 }
