@@ -1,29 +1,41 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="kk">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Durak QQ</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Durak QQ — Mini App</title>
+  <link rel="stylesheet" href="style.css" />
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
-  <div class="table">
-    <h1>🃏 Durak QQ</h1>
+  <main class="wrap">
+    <header class="header">
+      <div class="logo">🃏</div>
+      <h1 class="title">Durak QQ</h1>
+    </header>
 
-    <div class="cards">
-      <img src="https://deckofcardsapi.com/static/img/AS.png" alt="Ace of Spades" class="card">
-      <img src="https://deckofcardsapi.com/static/img/AH.png" alt="Ace of Hearts" class="card">
-      <img src="https://deckofcardsapi.com/static/img/AD.png" alt="Ace of Diamonds" class="card">
-      <img src="https://deckofcardsapi.com/static/img/JC.png" alt="Jack of Clubs" class="card">
-    </div>
+    <section class="table">
+      <div class="ornament"></div>
 
-    <div class="buttons">
-      <button id="join">👥 Топқа қосылу</button>
-      <button id="start">🎮 Ойынды бастау</button>
-      <button id="help">🤖 Кеңес сұрау</button>
-    </div>
-  </div>
+      <div class="center-area">
+        <div id="tableCards" class="table-cards" aria-hidden="false"></div>
+        <div id="trump" class="trump">Козыр: —</div>
+      </div>
+
+      <div class="player-area">
+        <div class="hand-label">Сенің қолың</div>
+        <div id="hand" class="hand"></div>
+      </div>
+    </section>
+
+    <nav class="controls">
+      <button id="joinBtn" class="btn">👥 Топқа қосылу</button>
+      <button id="startBtn" class="btn primary">🎮 Ойынды бастау</button>
+      <button id="adviceBtn" class="btn">🤖 Кеңес сұрау</button>
+    </nav>
+
+    <div id="toast" class="toast" aria-live="polite"></div>
+  </main>
 
   <script src="script.js"></script>
 </body>
