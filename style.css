@@ -32,6 +32,7 @@ body {
   position: relative;
   text-align: center;
   z-index: 1;
+  filter: brightness (06);
 }
 
 .title h1 {
