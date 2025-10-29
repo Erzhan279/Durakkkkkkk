@@ -90,12 +90,11 @@ body {
   position: absolute;
   width: 80px;
   height: auto;
-  top: -200px; /* жоғарырақ басталады */
+  top: -200px;
   opacity: 0;
-  animation: fall 2s ease-out forwards, swing 3s ease-in-out infinite 2s;
+  animation: fall 2.5s ease-out forwards, swing 3s ease-in-out infinite 2.5s;
 }
 
-/* карталардың бастапқы орналасуы */
 .card:nth-child(1) {
   left: 15%;
   animation-delay: 0.3s;
@@ -113,7 +112,6 @@ body {
   animation-delay: 1.2s;
 }
 
-/* түсу анимациясын өзгертіп, төменірек түсіреміз */
 @keyframes fall {
   0% {
     top: -200px;
@@ -124,13 +122,12 @@ body {
     opacity: 1;
   }
   100% {
-    top: 120px; /* бұрын 80px еді, енді төменірек түседі */
+    top: 200px; /* 👈 міне, осы мән карталарды қызыл сызық деңгейіне түсіреді */
     opacity: 1;
     transform: rotate(5deg);
   }
 }
 
-/* тербелу қалдырамыз */
 @keyframes swing {
   0%, 100% {
     transform: rotate(5deg) translateY(0);
