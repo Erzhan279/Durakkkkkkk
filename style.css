@@ -1,0 +1,43 @@
+body {
+  margin: 0;
+  background: radial-gradient(circle at center, #8b5e3c, #3a1d0e);
+  color: #fff;
+  font-family: 'Segoe UI', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.table {
+  text-align: center;
+  padding: 40px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 5px solid #c49b66;
+  border-radius: 20px;
+  box-shadow: 0 0 40px #000;
+  background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Kazakh_ornament.svg/1024px-Kazakh_ornament.svg.png');
+  background-size: 200px;
+  background-blend-mode: overlay;
+}
+
+button {
+  padding: 15px 25px;
+  font-size: 18px;
+  border: none;
+  border-radius: 10px;
+  margin: 10px;
+  cursor: pointer;
+  background: #c49b66;
+  color: #000;
+  transition: 0.2s;
+}
+
+button:hover {
+  background: #ffd27f;
+}
+
+#status {
+  margin-top: 20px;
+  font-style: italic;
+}
