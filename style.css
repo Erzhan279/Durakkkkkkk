@@ -1,106 +1,71 @@
-/* Негізгі стильдер және қазақи түстер */
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;600;700&display=swap');
+
 body {
-    font-family: 'Marcellus SC', Georgia, serif; /* Әдемі, салтанатты шрифт */
-    background-color: #F5EADF; /* Ашық құмды түс (фон) */
-    color: #5C3A21; /* Қою қоңыр мәтін */
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%23F5EADF"/><path d="M 0 50 C 20 20, 80 20, 100 50 L 100 0 L 0 0 Z" fill="%23D2B48C" opacity="0.3"/></svg>'); /* Жұмсақ фондық ою (қарапайым SVG) */
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  font-family: 'Rubik', sans-serif;
+  background-color: #4b2e05;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
 }
 
-/* Басты беттің контейнері */
-.home-page {
-    width: 90%;
-    max-width: 600px;
-    padding: 30px;
-    background-color: #FFFFFF;
-    border: 10px solid #8B4513; /* Сарғыш-қоңыр шекара */
-    border-radius: 15px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-    text-align: center;
+/* Қазақи ою фоны */
+.overlay {
+  background-image: url('pattern.png');
+  background-size: 180px;
+  background-repeat: repeat;
+  background-position: center;
+  opacity: 0.08;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 
-/* Бас тақырып */
-.main-header {
-    margin-bottom: 40px;
+.container {
+  position: relative;
+  text-align: center;
+  z-index: 2;
 }
 
-h1 {
-    font-size: 3.5rem;
-    margin: 10px 0;
-    color: #A0522D; /* Қою шай түс */
-    text-shadow: 2px 2px #D2B48C;
+.title h1 {
+  font-size: 3em;
+  margin: 0.3em 0;
+  color: #ffd280;
+  text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
 }
 
-.logo-qq {
-    color: #8B4513; /* Логотипті ерекшелеу */
-    font-size: 4rem;
-    font-weight: bold;
-    display: block;
+.title .emoji {
+  font-size: 2em;
 }
 
-p {
-    font-size: 1.2rem;
+.buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 40px;
 }
 
-/* Ою-өрнек (қарапайым сызық) */
-.ornament-top {
-    height: 10px;
-    background-color: #D2B48C;
-    margin-bottom: 20px;
-    border-radius: 5px;
+button {
+  background: linear-gradient(145deg, #6e400a, #8b5e20);
+  border: 2px solid #b88645;
+  border-radius: 14px;
+  color: white;
+  padding: 15px 30px;
+  font-size: 1.2em;
+  font-weight: 600;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
 }
 
-/* Мәзір және батырмалар */
-.menu-section {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.main-btn {
-    padding: 18px 30px;
-    font-size: 1.5rem;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 0 #5C3A21; /* 3D эффектісі үшін */
-    text-transform: uppercase;
-    font-family: 'Marcellus SC', serif;
-}
-
-/* Жеке ойнау батырмасы */
-.single-btn {
-    background-color: #A0522D; /* Шафран түс */
-    color: white;
-}
-
-.single-btn:hover {
-    background-color: #8B4513;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 0 #5C3A21;
-}
-
-/* Көп ойыншымен ойнау батырмасы */
-.multi-btn {
-    background-color: #D2B48C; /* Ашық сары-қоңыр */
-    color: #5C3A21;
-}
-
-.multi-btn:hover {
-    background-color: #C0A880;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 0 #5C3A21;
-}
-
-/* Төменгі деректеме */
-.main-footer {
-    margin-top: 40px;
-    font-size: 0.9rem;
-    color: #A0522D;
+button:hover {
+  background: linear-gradient(145deg, #8b5e20, #a8752e);
+  transform: scale(1.05);
 }
