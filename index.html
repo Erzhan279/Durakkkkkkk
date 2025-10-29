@@ -1,22 +1,31 @@
 <!DOCTYPE html>
 <html lang="kk">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Durak Mini App</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Durak QQ — Ойын</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
   <div class="table">
-    <h1>🃏 Durak Ойыны</h1>
-    <div class="menu">
-      <button id="soloBtn">🎮 Жеке ойнау</button>
-      <button id="groupBtn">👥 Топта ойнау</button>
+    <div class="overlay"></div>
+    <h1 class="title">🃏 Durak QQ</h1>
+
+    <div class="buttons">
+      <button id="joinBtn">👥 Топқа қосылу</button>
+      <button id="startBtn">🎮 Ойынды бастау</button>
+      <button id="adviceBtn">🤖 Кеңес сұрау</button>
     </div>
-    <p id="status">Ойынды таңдаңыз...</p>
+
+    <div class="cards">
+      <div class="card">🂡</div>
+      <div class="card">🂱</div>
+      <div class="card">🃑</div>
+      <div class="card">🂫</div>
+    </div>
   </div>
 
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
