@@ -1,17 +1,22 @@
 const tg = window.Telegram.WebApp;
-tg.expand();
+tg.expand(); // экранды кеңейту
 
-document.getElementById("joinBtn").addEventListener("click", () => {
-  tg.sendData("join_group");
-  tg.showAlert("Топқа қосылу сұранысы жіберілді ✅");
+function pulse(btn) {
+  btn.style.transform = 'scale(0.9)';
+  setTimeout(() => btn.style.transform = 'scale(1)', 150);
+}
+
+document.getElementById('join').addEventListener('click', (e) => {
+  pulse(e.target);
+  tg.showAlert('👥 Топқа қосылу сұранысы жіберілді!');
 });
 
-document.getElementById("startBtn").addEventListener("click", () => {
-  tg.sendData("start_game");
-  tg.showAlert("Ойын басталды! 🎮");
+document.getElementById('start').addEventListener('click', (e) => {
+  pulse(e.target);
+  tg.showAlert('🎮 Ойын басталды!');
 });
 
-document.getElementById("adviceBtn").addEventListener("click", () => {
-  tg.sendData("ask_advice");
-  tg.showAlert("🤖 Кеңес сұрау жіберілді");
+document.getElementById('help').addEventListener('click', (e) => {
+  pulse(e.target);
+  tg.showAlert('🤖 Кеңес сұрау орындалды!');
 });
