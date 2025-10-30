@@ -1,84 +1,80 @@
+/* 🪵 Жалпы фон және орналасу */
 body {
-  background-color: #3b2b1a;
-  font-family: 'Arial', sans-serif;
-  color: white;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 100vh;
+    background: radial-gradient(circle at center, #6b4f33 0%, #3d2b1f 100%);
+    font-family: "Segoe UI", "Arial", sans-serif;
+    color: #f5deb3;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
 }
 
-.table {
-  background: radial-gradient(circle at center, #5c3b24, #2a1d12);
-  width: 90%;
-  max-width: 600px;
-  height: 70vh;
-  border-radius: 50%;
-  margin-top: 20px;
-  position: relative;
-  box-shadow: 0 0 30px rgba(0,0,0,0.6);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  padding: 30px 0;
+/* 🎮 Ойын алаңы */
+.game-filed {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    background: url("https://www.transparenttextures.com/patterns/wood-pattern.png");
+    background-size: cover;
+    border: 8px solid #4e3723;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.7) inset;
+    border-radius: 10px;
 }
 
-.player-area {
-  display: flex;
-  gap: 10px;
-  align-items: center;
+/* 🃏 Карталар */
+.card-back, .card {
+    position: absolute;
+    width: 85px;
+    height: 125px;
+    border-radius: 10px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease;
+    cursor: pointer;
 }
 
-.card {
-  width: 60px;
-  height: 90px;
-  border-radius: 8px;
-  background: white;
-  color: black;
-  font-weight: bold;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-shadow: 0 0 5px rgba(0,0,0,0.5);
-  transition: transform 0.3s;
+.card-back:hover {
+    transform: translateY(-8px);
 }
 
-.card:hover {
-  transform: translateY(-5px);
+/* 🎯 Түйме — Келесі жүріс */
+.next_button {
+    position: absolute;
+    bottom: 40px;
+    right: 60px;
+    background: linear-gradient(180deg, #8b5e3b 0%, #5a3a1c 100%);
+    color: #fff8dc;
+    border: 2px solid #3b2413;
+    border-radius: 12px;
+    padding: 14px 28px;
+    font-size: 18px;
+    cursor: pointer;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+    transition: all 0.25s ease;
 }
 
-.card.red {
-  color: #e63946;
+.next_button:hover {
+    background: linear-gradient(180deg, #a26b40 0%, #6b4222 100%);
+    transform: scale(1.05);
 }
 
-.card.black {
-  color: #1b1b1b;
+/* 🏆 Жеңімпаз хабарламасы */
+.winner-popup {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(78, 55, 35, 0.9);
+    color: #fff8dc;
+    padding: 20px 40px;
+    border-radius: 14px;
+    font-size: 24px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+    display: none;
 }
 
-.card.back {
-  background: linear-gradient(135deg, #444, #222);
-  color: transparent;
-}
-
-.controls {
-  margin-top: 20px;
-  display: flex;
-  gap: 20px;
-}
-
-button {
-  background: #6b4b2a;
-  border: none;
-  padding: 10px 25px;
-  border-radius: 8px;
-  font-size: 18px;
-  color: white;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-button:hover {
-  background: #8c633b;
+/* 💬 Қосымша — қажет болса */
+.red-text {
+    color: #ff4a4a;
+    background: transparent;
 }
