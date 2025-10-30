@@ -1,210 +1,112 @@
 <!DOCTYPE html>
 <html lang="kk">
 <head>
-    <meta charset="UTF-8">
-    <title>🃏 Дурак ойыны</title>
-    <link rel="stylesheet" href="styles.css">
-    <style>
-        body {
-            background: radial-gradient(circle at center, #6b4f33 0%, #3d2b1f 100%);
-            font-family: "Segoe UI", sans-serif;
-            color: #f5deb3;
-            overflow: hidden;
-            margin: 0;
-            padding: 0;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Durak Mini App</title>
 
-        .game-filed {
-            position: relative;
-            width: 100vw;
-            height: 100vh;
-            background: url("https://www.transparenttextures.com/patterns/wood-pattern.png");
-            background-size: cover;
-            border: 8px solid #4e3723;
-            box-shadow: 0 0 30px rgba(0, 0, 0, 0.7) inset;
-        }
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background: url('https://i.ibb.co/sqWnWsT/wood-bg.jpg') no-repeat center center fixed;
+    background-size: cover;
+    font-family: "Arial", sans-serif;
+}
 
-        .card-back, .card-front {
-            position: absolute;
-            width: 80px;
-            height: 120px;
-            border-radius: 10px;
-            background-size: cover;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
+/* Карталар */
+.card, .card-back {
+    position: absolute;
+    width: 72px;
+    height: 100px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    transition: all 0.4s ease;
+}
 
-        .card-back:hover {
-            transform: translateY(-8px);
-        }
+/* Ойын алаңы */
+.game-field {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+}
 
-        .next_button {
-            position: absolute;
-            bottom: 30px;
-            right: 40px;
-            background: linear-gradient(180deg, #8b5e3b 0%, #5a3a1c 100%);
-            color: #fff8dc;
-            border: 2px solid #3b2413;
-            border-radius: 12px;
-            padding: 14px 26px;
-            font-size: 18px;
-            cursor: pointer;
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
-            transition: all 0.25s ease;
-        }
+/* Батырма (қоңыр стильде) */
+.next_button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #8B4513;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    padding: 12px 18px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+.next_button:active {
+    background-color: #A0522D;
+}
 
-        .next_button:hover {
-            background: linear-gradient(180deg, #a26b40 0%, #6b4222 100%);
-            transform: scale(1.05);
-        }
+/* Жеке стектер */
+.stack-1 { top: 2px; left: 2px; }
+.stack-2 { top: 4px; left: 4px; }
+.stack-3 { top: 6px; left: 6px; }
+.stack-4 { top: 8px; left: 8px; }
 
-        .winner-popup {
-            position: absolute;
-            top: 40%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(78, 55, 35, 0.9);
-            color: #fff8dc;
-            padding: 20px 40px;
-            border-radius: 14px;
-            font-size: 24px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
-        }
-    </style>
+</style>
 </head>
+
 <body>
-<div id="canvas" class="game-filed"></div>
-
-<button id="next_move" class="next_button">➡️ Келесі жүріс</button>
-
-<div id="winner" class="winner-popup" style="display:none;"></div>
+<div class="game-field" id="gameField">
+    <button class="next_button" id="nextBtn">➡️ Келесі жүріс</button>
+</div>
 
 <script>
-    function Card(id) {
-        this.id = id;
-        this.status = 0;
-        this.hide = function(){
-            document.getElementById(this.id).style.backgroundImage = "url('./0.png')";
-        }
-        this.show = function(){
-            document.getElementById(this.id).style.backgroundImage = "url('./" + id + ".png')";
-        }
+/* --- Карталар массиві --- */
+const cards = [6,7,8,9,10,11,12,13,14]; // Мысал үшін
+const suits = ["h","d","s","c"]; // жүрек, бубна, пика, крест
+
+let field = document.getElementById("gameField");
+
+/* --- Картаны көрсету --- */
+function createCard(id, x, y, hidden=false) {
+    const el = document.createElement("div");
+    el.className = hidden ? "card-back" : "card";
+    el.style.left = x + "px";
+    el.style.top = y + "px";
+    el.id = id;
+    el.style.backgroundImage = hidden
+        ? "url('./0.png')" 
+        : "url('./" + id + ".png')";
+    field.appendChild(el);
+    return el;
+}
+
+/* --- Ойын бастау --- */
+function startGame() {
+    // Колода
+    for (let i=0; i<6; i++) {
+        createCard("back"+i, 120 + i*80, 50, true);
     }
-
-    const FIRST_HAND_OFFSET_X = 100;
-    const FIRST_HAND_OFFSET_Y = 320;
-    const SECOND_HAND_OFFSET_X = 100;
-    const SECOND_HAND_OFFSET_Y = 40;
-    const CENTER_OFFSET_Y = 140;
-    const CENTER_OFFSET_Y2 = 190;
-    const TRASH_OFFSET_X = 650;
-    const CARD_HAND_WIDTH = 85;
-
-    var cards = [];
-    var centerStack = [];
-    var currentPlayer = 1;
-    var mainKind = 0;
-
-    function stackSetup() {
-        var canvas = document.getElementById("canvas");
-        for(var i = 1; i<5; i++) {
-            for(var j=6;j<15;j++) {
-                var id = i * 100 + j;
-                var el = document.createElement('div');
-                el.id = id;
-                el.classList.add("card-back");
-                canvas.appendChild(el);
-                cards.push(new Card(id));
-            }
-        }
+    // Сіздің карталар
+    for (let i=0; i<6; i++) {
+        let randomCard = 100 + Math.floor(Math.random()*36); // мысалы
+        createCard(randomCard, 100 + i*80, window.innerHeight - 150, false);
     }
+}
 
-    function shuffle(array) {
-        let counter = array.length;
-        while (counter > 0) {
-            let index = Math.floor(Math.random() * counter);
-            counter--;
-            let temp = array[counter];
-            array[counter] = array[index];
-            array[index] = temp;
-        }
-        return array;
-    }
+/* --- Батырма --- */
+document.getElementById("nextBtn").addEventListener("click", ()=>{
+    alert("Келесі жүріс 😎");
+});
 
-    function getKind(id){ return (id - (id%100))/100; }
-
-    function relayoutStack() {
-        for (let i = 0; i < cards.length; i++) {
-            if(cards[i].status === 0) {
-                let el = document.getElementById(cards[i].id);
-                el.style.top = (i * 2) + "px";
-                el.style.left = (i * 2) + "px";
-                el.style.zIndex = i+"";
-                cards[i].hide();
-            }
-        }
-        mainKind = getKind(cards[0].id);
-        var mainEl = document.getElementById(cards[0].id);
-        mainEl.style.top = (150) + "px";
-        cards[0].show();
-    }
-
-    function refillHand(status) {
-        var current = getSize(status);
-        for(var i=current;i<6;i++) {
-            var stackSize = getSize(0);
-            if(stackSize>0) {
-                cards[stackSize - 1].status = status;
-            }
-        }
-    }
-
-    function getSize(status) {
-        return cards.filter(c => c.status === status).length;
-    }
-
-    function renderHands() {
-        let playerCounter = 0;
-        let compCounter = 0;
-        for(let i=0;i<cards.length;i++){
-            let el = document.getElementById(cards[i].id);
-            if(cards[i].status===1) {
-                playerCounter++;
-                el.style.left = FIRST_HAND_OFFSET_X + playerCounter * CARD_HAND_WIDTH+"px";
-                el.style.top = FIRST_HAND_OFFSET_Y+"px";
-                el.style.backgroundImage = "url('img/" + cards[i].id + ".png')";
-            } else if(cards[i].status===2) {
-                compCounter++;
-                el.style.left = SECOND_HAND_OFFSET_X + compCounter * CARD_HAND_WIDTH+"px";
-                el.style.top = SECOND_HAND_OFFSET_Y+"px";
-            }
-        }
-    }
-
-    function changePlayer() {
-        currentPlayer = currentPlayer === 1 ? 2 : 1;
-    }
-
-    function showWinner(winner) {
-        const popup = document.getElementById("winner");
-        popup.innerText = winner === 1 ? "🎉 Жеңімпаз — Ойыншы 1!" :
-                          winner === 2 ? "🤖 Компьютер жеңді!" :
-                                         "🤝 Тең ойын!";
-        popup.style.display = "block";
-    }
-
-    document.getElementById("next_move").onclick = function() {
-        alert("Келесі жүріс іске қосылды!");
-    };
-
-    // Initial setup
-    stackSetup();
-    shuffle(cards);
-    relayoutStack();
-    refillHand(1);
-    refillHand(2);
-    renderHands();
+/* --- Бастау --- */
+startGame();
 </script>
+
 </body>
 </html>
