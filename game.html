@@ -85,10 +85,10 @@
         this.id = id;
         this.status = 0;
         this.hide = function(){
-            document.getElementById(this.id).style.backgroundImage = "url('img/0.png')";
+            document.getElementById(this.id).style.backgroundImage = "url('./0.png')";
         }
         this.show = function(){
-            document.getElementById(this.id).style.backgroundImage = "url('img/" + id + ".png')";
+            document.getElementById(this.id).style.backgroundImage = "url('./" + id + ".png')";
         }
     }
 
