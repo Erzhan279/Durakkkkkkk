@@ -1,0 +1,84 @@
+body {
+  background-color: #3b2b1a;
+  font-family: 'Arial', sans-serif;
+  color: white;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+}
+
+.table {
+  background: radial-gradient(circle at center, #5c3b24, #2a1d12);
+  width: 90%;
+  max-width: 600px;
+  height: 70vh;
+  border-radius: 50%;
+  margin-top: 20px;
+  position: relative;
+  box-shadow: 0 0 30px rgba(0,0,0,0.6);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px 0;
+}
+
+.player-area {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.card {
+  width: 60px;
+  height: 90px;
+  border-radius: 8px;
+  background: white;
+  color: black;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 5px rgba(0,0,0,0.5);
+  transition: transform 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card.red {
+  color: #e63946;
+}
+
+.card.black {
+  color: #1b1b1b;
+}
+
+.card.back {
+  background: linear-gradient(135deg, #444, #222);
+  color: transparent;
+}
+
+.controls {
+  margin-top: 20px;
+  display: flex;
+  gap: 20px;
+}
+
+button {
+  background: #6b4b2a;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 8px;
+  font-size: 18px;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: #8c633b;
+}
