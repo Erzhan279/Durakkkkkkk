@@ -43,3 +43,98 @@
   </script>
 </body>
 </html>
+<!-- Робот иконкасы (emoji) -->
+<div id="chat-bot" style="
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  font-size: 40px;
+  cursor: pointer;
+  z-index: 1000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+">
+  ⚡🤖
+</div>
+
+<!-- Чат терезесі -->
+<div id="chat-window" style="
+  display: none;
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+  width: 300px;
+  height: 400px;
+  border: 1px solid #ccc;
+  background: white;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  z-index: 1000;
+  border-radius: 10px;
+  overflow: hidden;
+  flex-direction: column;
+  display: flex;
+">
+  <div id="chat-header" style="background:#4CAF50;color:white;padding:10px;font-weight:bold;">
+    AI Ассистент
+  </div>
+  <div id="chat-messages" style="flex:1;padding:10px;overflow-y:auto;">
+    <div style="font-size:14px;color:#333;">Сәлем ✋🏻! Мен AI Ассистентпін. Сұрақ қойсаңыз, жауап беремін.</div>
+  </div>
+  <div style="padding:5px;border-top:1px solid #ccc; display:flex;">
+    <input id="chat-input" type="text" placeholder="Сұрақ қойыңыз..." style="flex:1;padding:5px;">
+    <button onclick="sendMessage()" style="padding:5px;">Жіберу</button>
+  </div>
+</div>
+
+<script>
+const botIcon = document.getElementById('chat-bot');
+const chatWindow = document.getElementById('chat-window');
+
+botIcon.onclick = () => {
+  chatWindow.style.display = chatWindow.style.display === 'none' ? 'flex' : 'none';
+};
+
+async function sendMessage() {
+  const input = document.getElementById('chat-input');
+  const message = input.value.trim();
+  if(!message) return;
+
+  const chatMessages = document.getElementById('chat-messages');
+
+  // Пайдаланушы хабары
+  const userMsg = document.createElement('div');
+  userMsg.style.textAlign = 'right';
+  userMsg.style.margin = '5px 0';
+  userMsg.innerHTML = `<b>Сіз:</b> ${message}`;
+  chatMessages.appendChild(userMsg);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+
+  input.value = '';
+
+  // n8n Webhook сұрау
+  try {
+    const res = await fetch('https://your-n8n-url.onrender.com/webhook/ai-assistant', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({question: message})
+    });
+    const data = await res.json();
+
+    const botMsg = document.createElement('div');
+    botMsg.style.textAlign = 'left';
+    botMsg.style.margin = '5px 0';
+    botMsg.innerHTML = `<b>Бот:</b> ${data.answer}`;
+    chatMessages.appendChild(botMsg);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  } catch(err) {
+    const botMsg = document.createElement('div');
+    botMsg.style.textAlign = 'left';
+    botMsg.style.color = 'red';
+    botMsg.innerHTML = `<b>Бот:</b> Қате болды, қайта тексеріңіз.`;
+    chatMessages.appendChild(botMsg);
+  }
+}
+</script>
