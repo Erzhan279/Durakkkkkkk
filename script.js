@@ -2,7 +2,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const singlePlayerBtn = document.getElementById('single-player-btn');
     const multiplayerBtn = document.getElementById('multiplayer-btn');
-    
+    const res = await fetch('https://n8n-render-6p2r.onrender.com/webhook-test/1d10ea87-7c62-46cd-8022-2da4df2252bd', {
+  method: 'POST',
+  headers: {'Content-Type':'application/json'},
+  body: JSON.stringify({question: message})
+
     // Ескерту: Бұл код тек басты бетті көрсетеді. 
     // Ойынға көшу үшін толық логика қажет.
 
